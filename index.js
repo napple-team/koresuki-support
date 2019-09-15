@@ -3,7 +3,7 @@ const { IncomingWebhook } = require('@slack/webhook');
 const safeWebhookUrl = process.env.SAFE_CHANNEL_WEBHOOK_URL;
 const nsfwWebhookUrl = process.env.NSFW_CHANNEL_WEBHOOK_URL;
 
-const nsfwChannelId = 'BNEGY0P3R'
+const nsfwChannelId = process.env.NSFW_CHANNEL_ID;
 
 exports.koresuki = (req, res) => {
   (async () => {
