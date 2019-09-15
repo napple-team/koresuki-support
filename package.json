@@ -1,0 +1,12 @@
+{
+  "name": "koresuki-nsfw-support",
+  "version": "1.0.0",
+  "description": "koresuki /nsfw command",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/windyakin/koresuki-nsfw-support.git"
+  },
+  "author": "windyakin",
+  "license": "MIT"
+}
