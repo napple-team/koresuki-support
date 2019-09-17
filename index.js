@@ -26,33 +26,41 @@ exports.koresuki = (req, res) => {
 
     let postChannelId = null;
 
-    switch (command) {
-      case '/koresuki':
-        postChannelId = postChannel.safe.channelId;
+    try {
+      switch (command) {
+        case '/koresuki':
+          postChannelId = postChannel.safe.channelId;
+          await new IncomingWebhook(postChannel.safe.webhookUrl).send({
+            text: `${postedUserName} さんから: \n${text}`,
+          });
+          break;
 
-        await new IncomingWebhook(postChannel.safe.webhookUrl).send({
-          text: `${postedUserName} さんから: \n${text}`,
-        });
+        case '/nsfw':
+          postChannelId = postChannel.nsfw.channelId;
+          await new IncomingWebhook(postChannel.safe.webhookUrl).send({
+            text: `${postedUserName} さんが <#${postChannelId}> に Twitter URL を投稿しました`,
+          });
+          await new IncomingWebhook(postChannel.nsfw.webhookUrl).send({
+            text: `${postedUserName} さんから: \n${text}`,
+          });
+          break;
 
-        break;
-      case '/nsfw':
-        postChannelId = postChannel.nsfw.channelId;
-
-        await new IncomingWebhook(postChannel.safe.webhookUrl).send({
-          text: `${postedUserName} さんが <#${postChannelId}> に Twitter URL を投稿しました`,
-        });
-        await new IncomingWebhook(postChannel.nsfw.webhookUrl).send({
-          text: `${postedUserName} さんから: \n${text}`,
-        });
-
-        break;
-      default:
-        break;
+        default:
+          return;
+      }
+    } catch (err) {
+      res.status(200).json({
+        response_type: 'ephemeral',
+        text: `投稿に失敗しました\n\`\`\`\n${err}\`\`\``,
+      });
+      throw err;
     }
 
     res.status(200).json({
       response_type: 'ephemeral',
       text: `\`${text}\` を <#${postChannelId}> に投稿しました`,
     });
-  })().then();
+  })()
+    .then()
+    .catch((err) => { throw err; });
 };
