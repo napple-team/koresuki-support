@@ -46,7 +46,7 @@ exports.koresuki = (req, res) => {
           break;
 
         default:
-          return;
+          break;
       }
     } catch (err) {
       res.status(200).json({
