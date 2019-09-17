@@ -46,21 +46,19 @@ exports.koresuki = (req, res) => {
           break;
 
         default:
-          return;
+          break;
       }
     } catch (err) {
       res.status(200).json({
         response_type: 'ephemeral',
         text: `投稿に失敗しました\n\`\`\`\n${err}\`\`\``,
       });
-      throw err;
+      return;
     }
 
     res.status(200).json({
       response_type: 'ephemeral',
       text: `下記の内容 を <#${postChannelId}> に投稿しました\n\`\`\`\n${text}\`\`\``,
     });
-  })()
-    .then()
-    .catch((err) => { throw err; });
+  })().then();
 };
