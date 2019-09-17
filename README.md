@@ -1,8 +1,10 @@
-# Koresuki NSFW Support
+# Koresuki Support
 
 ## About
 
-Slack に NSFW な URL を投稿したいときに NSFW なチャンネルを開かずとも、 Slash コマンド `/nsfw` を通して Twitter の URL を送信すれば NSFW なチャンネルに投稿して、 SFW のチャンネルに通知してくれるやつ。
+Slack に これすき な URL を投稿したいときに これすき なチャンネルを開かずとも、 Slash コマンド `/nsfw` を通して Twitter の URL を送信すれば NSFW なチャンネルに投稿してくれるやつ。
+
+NSFW 対応もあるよ！
 
 ## Architecture
 
