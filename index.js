@@ -58,7 +58,7 @@ exports.koresuki = (req, res) => {
 
     res.status(200).json({
       response_type: 'ephemeral',
-      text: `\`${text}\` を <#${postChannelId}> に投稿しました`,
+      text: `下記の内容 を <#${postChannelId}> に投稿しました\n\`\`\`\n${text}\`\`\``,
     });
   })()
     .then()
