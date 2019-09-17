@@ -1,32 +1,66 @@
 const { IncomingWebhook } = require('@slack/webhook');
 
-const safeWebhookUrl = process.env.SAFE_CHANNEL_WEBHOOK_URL;
-const nsfwWebhookUrl = process.env.NSFW_CHANNEL_WEBHOOK_URL;
-
-const nsfwChannelId = process.env.NSFW_CHANNEL_ID;
+const postChannel = {
+  safe: {
+    webhookUrl: process.env.SAFE_CHANNEL_WEBHOOK_URL,
+    channelId: process.env.SAFE_CHANNEL_ID,
+  },
+  nsfw: {
+    webhookUrl: process.env.NSFW_CHANNEL_WEBHOOK_URL,
+    channelId: process.env.NSFW_CHANNEL_ID,
+  },
+};
 
 exports.koresuki = (req, res) => {
   (async () => {
-    const request = req.body.text;
+    const { command, text } = req.body;
     const postedUserName = req.body.user_name;
 
-    if (!request.match(/https:\/\/twitter\.com\/\w+\/status\/\d+/)) {
+    if (!/https:\/\/twitter\.com\/\w+\/status\/\d+/.test(text)) {
       res.status(200).json({
         response_type: 'ephemeral',
-        text: 'URLがTwitterと認識できなかったため処理を中断します',
+        text: 'メッセージ中にTwitterのURLが存在しないため処理を中断します',
       });
       return;
     }
 
+    let postChannelId = null;
+
+    try {
+      switch (command) {
+        case '/koresuki':
+          postChannelId = postChannel.safe.channelId;
+          await new IncomingWebhook(postChannel.safe.webhookUrl).send({
+            text: `${postedUserName} さんから: \n${text}`,
+          });
+          break;
+
+        case '/nsfw':
+          postChannelId = postChannel.nsfw.channelId;
+          await new IncomingWebhook(postChannel.safe.webhookUrl).send({
+            text: `${postedUserName} さんが <#${postChannelId}> に Twitter URL を投稿しました`,
+          });
+          await new IncomingWebhook(postChannel.nsfw.webhookUrl).send({
+            text: `${postedUserName} さんから: \n${text}`,
+          });
+          break;
+
+        default:
+          return;
+      }
+    } catch (err) {
+      res.status(200).json({
+        response_type: 'ephemeral',
+        text: `投稿に失敗しました\n\`\`\`\n${err}\`\`\``,
+      });
+      throw err;
+    }
+
     res.status(200).json({
       response_type: 'ephemeral',
-      text: `\`${request}\` を <#${nsfwChannelId}> に投稿しました`,
+      text: `下記の内容 を <#${postChannelId}> に投稿しました\n\`\`\`\n${text}\`\`\``,
     });
-    await new IncomingWebhook(safeWebhookUrl).send({
-      text: `${postedUserName} さんが <#${nsfwChannelId}> に Twitter URL を投稿しました`,
-    });
-    await new IncomingWebhook(nsfwWebhookUrl).send({
-      text: `${postedUserName} さんから: \n${request}`,
-    });
-  })().then();
+  })()
+    .then()
+    .catch((err) => { throw err; });
 };
