@@ -1,0 +1,25 @@
+name: deploy
+
+on:
+  push:
+    - master
+
+jobs:
+  gcp:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - id: deploy
+        uses: google-github-actions/deploy-cloud-functions@main
+        with:
+          name: koresuki-nsfw-support
+          runtime: nodejs12
+          credentials: ${{ secrets.GCP_CREDENTIALS }}
+          entry_point: koresuki
+          env_vars: >-
+            SAFE_CHANNEL_WEBHOOK_URL=${{ secrets.SAFE_CHANNEL_WEBHOOK_URL }}
+            ,SAFE_CHANNEL_ID=${{ secrets.SAFE_CHANNEL_ID }}
+            ,NSFW_CHANNEL_WEBHOOK_URL=${{ secrets.NSFW_CHANNEL_WEBHOOK_URL }}
+            ,NSFW_CHANNEL_ID=${{ secrets.NSFW_CHANNEL_ID }}
