@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "/koresuki command",
   "main": "index.js",
+  "scripts": {
+    "lint": "eslint ."
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/windyakin/koresuki-support.git"
