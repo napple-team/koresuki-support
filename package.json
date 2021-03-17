@@ -10,10 +10,10 @@
   "author": "windyakin",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^6.8.0",
+    "eslint": "^7.22.0",
     "eslint-plugin-node": "^11.1.0"
   },
   "dependencies": {
-    "@slack/webhook": "^5.0.3"
+    "@slack/webhook": "^6.0.0"
   }
 }
