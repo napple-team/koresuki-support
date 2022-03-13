@@ -16,7 +16,7 @@ jobs:
         uses: google-github-actions/deploy-cloud-functions@main
         with:
           name: koresuki-nsfw-support
-          runtime: nodejs12
+          runtime: nodejs14
           credentials: ${{ secrets.GCP_CREDENTIALS }}
           entry_point: koresuki
           env_vars: >-
