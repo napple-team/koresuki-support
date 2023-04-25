@@ -46,6 +46,8 @@ exports.koresuki = (req, res) => {
           postChannelId = postChannel.safe.channelId;
           await new IncomingWebhook(postChannel.safe.webhookUrl).send({
             text: `${postedUserName} さんから: \n${text}`,
+            unfurl_links: true,
+            unfurl_media: true,
           });
           break;
 
