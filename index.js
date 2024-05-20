@@ -30,7 +30,7 @@ exports.koresuki = (req, res) => {
     const { command, text } = req.body;
     const postedUserName = req.body.user_name;
 
-    if (!/https:\/\/twitter\.com\/\w+\/status\/\d+/.test(text)) {
+    if (!/https:\/\/(twitter|x)\.com\/\w+\/status\/\d+/.test(text)) {
       res.status(200).json({
         response_type: 'ephemeral',
         text: 'メッセージ中にTwitterのURLが存在しないため処理を中断します',
