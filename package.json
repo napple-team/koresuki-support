@@ -17,6 +17,6 @@
     "eslint-plugin-node": "^11.1.0"
   },
   "dependencies": {
-    "@slack/webhook": "^6.1.0"
+    "@slack/webhook": "^7.0.0"
   }
 }
