@@ -2,8 +2,10 @@
   "name": "koresuki-support",
   "version": "1.0.0",
   "description": "/koresuki command",
+  "type": "module",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "lint": "eslint ."
   },
   "repository": {
@@ -17,6 +19,8 @@
     "eslint-plugin-node": "^11.1.0"
   },
   "dependencies": {
-    "@slack/webhook": "^7.0.0"
+    "@hono/node-server": "^1.14.1",
+    "@slack/webhook": "^7.0.0",
+    "hono": "^4.7.5"
   }
 }
