@@ -15,8 +15,8 @@
   "author": "windyakin",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^8.50.0",
-    "eslint-plugin-node": "^11.1.0"
+    "eslint": "^9.39.2",
+    "globals": "^17.3.0"
   },
   "dependencies": {
     "@hono/node-server": "^1.14.1",
