@@ -12,14 +12,11 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: windyakin/koresuki-support
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
 
     steps:
       - uses: actions/checkout@v6
@@ -30,8 +27,8 @@ jobs:
         if: github.event_name != 'pull_request'
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: windyakin
+          password: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - uses: docker/metadata-action@v5
         id: meta
