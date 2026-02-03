@@ -18,6 +18,10 @@ const postChannel = {
 
 app.use('*', cors());
 
+app.get('/health', (c) => {
+  return c.json({ status: 'ok' });
+});
+
 app.post('/', async (c) => {
   const body = await c.req.parseBody();
   const { command, text } = body;
