@@ -23,7 +23,7 @@ app.get('/health', (c) => {
 });
 
 app.post('/', async (c) => {
-  const body = await c.req.parseBody();
+  const body = await c.req.json();
   const { command, text } = body;
   const postedUserName = body.user_name;
 
