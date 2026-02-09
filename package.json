@@ -21,6 +21,6 @@
   "dependencies": {
     "@hono/node-server": "^1.14.1",
     "@slack/webhook": "^7.0.0",
-    "hono": "^4.7.5"
+    "hono": "^4.11.9"
   }
 }
