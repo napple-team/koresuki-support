@@ -1,9 +1,11 @@
 import js from '@eslint/js';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 
-export default [
-  js.configs.recommended,
+export default defineConfig([
   {
+    files: ['**/*.js'],
+    extends: [js.configs.recommended],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -12,7 +14,5 @@ export default [
       },
     },
   },
-  {
-    ignores: ['node_modules/'],
-  },
-];
+  globalIgnores(['node_modules/']),
+]);
